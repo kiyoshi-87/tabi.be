@@ -1,0 +1,18 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2.0
+    container_name: keycloak-tabi
+    restart: always
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    networks:
+      - tabi-net
+    command:
+      - "start-dev"
+
+networks:
+  tabi-net:
+    driver: bridge
