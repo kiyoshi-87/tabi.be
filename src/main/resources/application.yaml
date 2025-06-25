@@ -1,10 +1,18 @@
 spring:
   ai:
     ollama:
-      base-url: http://localhost:11434
+      base-url: ${OLLAMA_BASE_URL}
       chat:
         model: travel-itinerary
         options:
           temperature: 0.7
           top-p: 0.9
           num-predict: 2048
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:8080/realms/tabi/protocol/openid-connect/certs"
+
+server:
+  port: 8085
