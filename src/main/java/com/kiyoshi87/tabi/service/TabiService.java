@@ -13,11 +13,11 @@ import static com.kiyoshi87.tabi.util.TabiValidationUtil.validateRequestedDate;
 
 @Service
 @Slf4j
-public class OllamaService {
+public class TabiService {
 
     private final ChatClient chatClient;
 
-    public OllamaService(ChatClient.Builder chatClientBuilder) {
+    public TabiService(ChatClient.Builder chatClientBuilder) {
         this.chatClient = chatClientBuilder.build();
     }
 
