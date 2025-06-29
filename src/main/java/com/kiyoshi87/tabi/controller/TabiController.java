@@ -2,7 +2,7 @@ package com.kiyoshi87.tabi.controller;
 
 import com.kiyoshi87.tabi.model.dto.request.ItineraryRequestDto;
 import com.kiyoshi87.tabi.model.dto.response.ItineraryResponseDto;
-import com.kiyoshi87.tabi.service.OllamaService;
+import com.kiyoshi87.tabi.service.TabiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @Slf4j
 @RequiredArgsConstructor
-public class OllamaController {
+public class TabiController {
 
-    private final OllamaService ollamaService;
+    private final TabiService tabiService;
 
     @PostMapping("/generate")
     public ResponseEntity<ItineraryResponseDto> generate(@RequestBody ItineraryRequestDto request) {
-        return ResponseEntity.ok(ollamaService.generateItinerary(request));
+        return ResponseEntity.ok(tabiService.generateItinerary(request));
     }
 }
