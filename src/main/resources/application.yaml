@@ -2,15 +2,15 @@ spring:
   ai:
     openai:
       base-url: https://openrouter.ai/api
-      api-key: ${OPENROUTER_API_KEY}
+      api-key: ${OPEN_ROUTER_API_KEY}
       chat:
-        model: deepseek/deepseek-r1-0528-qwen3-8b:free
+        model: ${OPEN_ROUTER_LLM_MODEL}
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: "http://localhost:8080/realms/tabi/protocol/openid-connect/certs"
+          jwk-set-uri: "http://keycloak:8080/realms/tabi/protocol/openid-connect/certs"
 
 server:
   port: 8085
