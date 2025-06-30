@@ -35,7 +35,7 @@ services:
       - "start-dev"
 
   tabi-be:
-    image: kiyoshi087/tabi-be:2.0.5
+    image: kiyoshi087/tabi-be:latest
     container_name: tabi-be
     restart: always
     environment:
