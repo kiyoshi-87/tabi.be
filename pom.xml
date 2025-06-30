@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.kiyoshi87</groupId>
 	<artifactId>tabi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<name>tabi</name>
 	<description>A traveller&apos;s ultimate itinerary guide</description>
 	<url/>
@@ -27,6 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
+		<revision>2.0.6</revision>
 		<java.version>21</java.version>
 		<spring-ai.version>1.0.0</spring-ai.version>
 		<lombok.version>1.18.30</lombok.version>

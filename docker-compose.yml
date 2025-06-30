@@ -4,9 +4,9 @@ services:
     container_name: keycloak-db
     restart: always
     environment:
-      POSTGRES_DB: keycloak  # Replace with secrets
-      POSTGRES_USER: keycloak # Replace with secrets
-      POSTGRES_PASSWORD: secret # Replace with secrets
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - keycloak-db-data:/var/lib/postgresql/data
     networks:
@@ -17,12 +17,12 @@ services:
     container_name: keycloak-tabi
     restart: always
     environment:
-      - KEYCLOAK_ADMIN=admin # Replace with secrets
-      - KEYCLOAK_ADMIN_PASSWORD=admin # Replace with secrets
+      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
       - KC_DB=postgres
       - KC_DB_URL=jdbc:postgresql://keycloak-db:5432/keycloak
       - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=secret
+      - KC_DB_PASSWORD=${KC_DB_PASSWORD}
     ports:
       - "8080:8080"
     depends_on:
@@ -35,11 +35,12 @@ services:
       - "start-dev"
 
   tabi-be:
-    image: kiyoshi087/tabi-be:1.2.0
+    image: kiyoshi087/tabi-be:latest
     container_name: tabi-be
     restart: always
     environment:
-      - OLLAMA_BASE_URL=http://localhost:11434
+      - OPEN_ROUTER_API_KEY=${OPEN_ROUTER_API_KEY}
+      - OPEN_ROUTER_LLM_MODEL=${OPEN_ROUTER_LLM_MODEL}
     depends_on:
       - keycloak
     ports:
@@ -53,22 +54,13 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    environment:
+      - VITE_BACK_END_URL=${VITE_BACK_END_URL}
+      - VITE_KEYCLOAK_URL=${VITE_KEYCLOAK_URL}
+      - VITE_KEYCLOAK_REALM=tabi
+      - VITE_KEYCLOAK_CLIENT_ID=${VITE_KEYCLOAK_CLIENT_ID}
     networks:
       - tabi-net
-
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
-    ports:
-      - "11435:11434"
-    volumes:
-      - ollama-models:/root/.ollama
-      - ./Ollama:/root/Ollama
-    devices:
-      - /dev/kvm
-    restart: unless-stopped
-    working_dir: /root/Ollama
-    entrypoint: [ "/bin/sh", "-c", "ollama serve & sleep 10 && ollama create my-gemma -f Modelfile && ollama run my-gemma" ]
 
 networks:
   tabi-net:
